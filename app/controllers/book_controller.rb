@@ -21,6 +21,17 @@ class BookController < ApplicationController
 
       end
 
+      def destroy
+        @book = Book.find_by(title: params[:title])
+
+        if @book.destroy
+          head :no_content
+        else 
+          render json: {error: @book.errors.messages},status: 422
+        end
+        
+      end
+
       def book_params
         params.require(:book).permit(:title, :author, :genre, :stock, :published_year)
       end
