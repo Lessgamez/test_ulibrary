@@ -14,7 +14,13 @@ class UserController < ApplicationController
         end
 
       end
-
+    def destroy
+        @user = User.find(params[:id])
+        if @user.present?
+          @user.destroy
+        end
+        render json: {error: @user.errors.messages},status: 422
+    end
       def user_params
         params.require(:user).permit(:name, :lastname, :email, :rol, :password)
       end
