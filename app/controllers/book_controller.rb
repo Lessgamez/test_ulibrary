@@ -5,12 +5,12 @@ class BookController < ApplicationController
       end
 
       def create
-        book= Book.new(book_params)
+        @book= Book.new(book_params)
 
-        if book.save
-          render json: bookSerializer.new(book).serialized_json
+        if @book.save
+          render json: @book
         else
-          render json: {error: book.errors.messages},status: 422
+          render json: {error: @book.errors.messages},status: 422
         end
       end
 
